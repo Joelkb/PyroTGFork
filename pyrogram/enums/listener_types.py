@@ -1,6 +1,6 @@
-from enum import Enum
+from .auto_name import AutoName
 
 
-class ListenerTypes(Enum):
+class ListenerTypes(AutoName):
     MESSAGE = "message"
     CALLBACK_QUERY = "callback_query"
