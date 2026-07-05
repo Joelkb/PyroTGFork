@@ -54,7 +54,7 @@ from pyrogram.handlers.handler import Handler
 from pyrogram.methods import Methods
 from pyrogram.session import Auth, Session
 from pyrogram.storage import SQLiteStorage, Storage
-from pyrogram.types import User, TermsOfService, ListenerTypes, Identifier, Listener
+from pyrogram.types import User, TermsOfService, Identifier, Listener
 from pyrogram.utils import MIN_MONOFORUM_CHANNEL_ID, ainput, PyromodConfig
 from .connection import Connection
 from .connection.transport import TCP, TCPAbridged, TCPFull
@@ -376,7 +376,7 @@ class Client(Methods):
         self.updates_watchdog_task = None
         self.updates_watchdog_event = asyncio.Event()
         self.last_update_time = datetime.now()
-        self.listeners = {listener_type: [] for listener_type in ListenerTypes}
+        self.listeners = {listener_type: [] for listener_type in enums.ListenerTypes}
         self.loop = utils.get_event_loop()
 
     def __enter__(self):
@@ -412,7 +412,7 @@ class Client(Methods):
     async def listen(
         self,
         filters: Optional[Filter] = None,
-        listener_type: ListenerTypes = ListenerTypes.MESSAGE,
+        listener_type: enums.ListenerTypes = enums.ListenerTypes.MESSAGE,
         timeout: Optional[int] = None,
         unallowed_click_alert: bool = True,
         chat_id: Union[Union[int, str], List[Union[int, str]]] = None,
@@ -473,7 +473,7 @@ class Client(Methods):
         chat_id: Union[Union[int, str], List[Union[int, str]]],
         text: str,
         filters: Optional[Filter] = None,
-        listener_type: ListenerTypes = ListenerTypes.MESSAGE,
+        listener_type: enums.ListenerTypes = enums.ListenerTypes.MESSAGE,
         timeout: Optional[int] = None,
         unallowed_click_alert: bool = True,
         user_id: Union[Union[int, str], List[Union[int, str]]] = None,
@@ -532,7 +532,7 @@ class Client(Methods):
             pass
 
     def get_listener_matching_with_data(
-            self, data: Identifier, listener_type: ListenerTypes
+            self, data: Identifier, listener_type: enums.ListenerTypes
     ) -> Optional[Listener]:
         """
         Gets a listener that matches the given data.
@@ -553,7 +553,7 @@ class Client(Methods):
         return max(matching, key=count_populated_attributes, default=None)
 
     def get_listener_matching_with_identifier_pattern(
-            self, pattern: Identifier, listener_type: ListenerTypes
+            self, pattern: Identifier, listener_type: enums.ListenerTypes
     ) -> Optional[Listener]:
         """
         Gets a listener that matches the given identifier pattern.
@@ -581,7 +581,7 @@ class Client(Methods):
     def get_many_listeners_matching_with_data(
         self,
         data: Identifier,
-        listener_type: ListenerTypes,
+        listener_type: enums.ListenerTypes,
     ) -> List[Listener]:
         """
         Same of :meth:`pyromod.types.Client.get_listener_matching_with_data` but returns a list of listeners instead of one.
@@ -599,7 +599,7 @@ class Client(Methods):
     def get_many_listeners_matching_with_identifier_pattern(
         self,
         pattern: Identifier,
-        listener_type: ListenerTypes,
+        listener_type: enums.ListenerTypes,
     ) -> List[Listener]:
         """
         Same of :meth:`pyromod.types.Client.get_listener_matching_with_identifier_pattern` but returns a list of listeners instead of one.
@@ -616,7 +616,7 @@ class Client(Methods):
 
     async def stop_listening(
         self,
-        listener_type: ListenerTypes = ListenerTypes.MESSAGE,
+        listener_type: enums.ListenerTypes = enums.ListenerTypes.MESSAGE,
         chat_id: Union[Union[int, str], List[Union[int, str]]] = None,
         user_id: Union[Union[int, str], List[Union[int, str]]] = None,
         message_id: Union[int, List[int]] = None,
@@ -673,7 +673,7 @@ class Client(Methods):
         self,
         callback: Callable,
         filters: Optional[Filter] = None,
-        listener_type: ListenerTypes = ListenerTypes.MESSAGE,
+        listener_type: enums.ListenerTypes = enums.ListenerTypes.MESSAGE,
         unallowed_click_alert: bool = True,
         chat_id: Union[Union[int, str], List[Union[int, str]]] = None,
         user_id: Union[Union[int, str], List[Union[int, str]]] = None,
