@@ -69,6 +69,8 @@ from .stop_poll import StopPoll
 from .stream_media import StreamMedia
 from .view_messages import ViewMessages
 from .vote_poll import VotePoll
+from .wait_for_message import WaitForMessage
+from .wait_for_callback_query import WaitForCallbackQuery
 from .get_chat_sponsored_messages import GetChatSponsoredMessages
 from .search_public_messages_by_tag import SearchPublicMessagesByTag
 from .count_public_messages_by_tag import CountPublicMessagesByTag
@@ -99,6 +101,8 @@ class Messages(
     GetChatHistory,
     GetChatHistoryCount,
     GetCustomEmojiStickers,
+    WaitForMessage,
+    WaitForCallbackQuery,
     GetDiscussionMessage,
     GetDiscussionReplies,
     GetDiscussionRepliesCount,
